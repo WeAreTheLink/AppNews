@@ -10,7 +10,12 @@
 
 function normalize()
 {
-	echo $1
+	destination=$1;
+	page=$2;
+	if [ echo $destination | grep "^(http|https)"]; then
+	then
+		
+	fi;
 }
 
 
