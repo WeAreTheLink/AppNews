@@ -12,9 +12,14 @@ function normalize()
 {
 	destination=$1;
 	page=$2;
-	if [ echo $destination | grep "^(http|https)"]; then
+	if [ echo $destination | grep "^(http|https)"]; #extern link
 	then
-		
+		echo $destination | sed 's%^(http|https)://%%g' | read v_target
+		echo $v_target
+	else #intern link
+		destination=`echo $page $destination`
+		destination=`echo $destination | realpath`
+		echo $destination
 	fi;
 }
 
@@ -24,8 +29,6 @@ do
 	for target in `./getLink.sh $pag`
 	do
 		normalize $target $page | read atual
-		if [ $! ]; then
-			echo $pag $atual
-		fi
+		echo $pag $atual
 	done
 done | tee grafo
