@@ -17,7 +17,7 @@ for filename in glob.iglob('./**/*.html', recursive=True):
 	p = subprocess.Popen(["./getLink.py",filename],stdout=subprocess.PIPE)
         for line in p.stdout.readlines():
 		atual=normalize(destination,page)
-		print(page,atual)
+		print(page+" "+atual)
 
 #!/bin/bash
 
