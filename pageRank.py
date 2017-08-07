@@ -12,3 +12,6 @@ while (True):
     break
   entrada=input()
 d = pagerank(g, alpha=0.85, max_iter=1000, tol=1e-06)
+
+
+#after tests, create neural network, add here and merge the files, because in the beggining there's a lot of shell scripts
