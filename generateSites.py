@@ -1,10 +1,10 @@
 
 fp=open("sites","r")
 for line in fp:
-	first,second = line.strip(' ')
-	category = second.strip(',')
+	first,second = line.split(' ')
+	category = second.split(',')
 	for categories in category:
-		print (first,"/",categories)
+		print ("%s/%s" % (first,categories))
 
 
 
