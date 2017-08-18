@@ -2,9 +2,12 @@ import sys
 from bs4 import BeautifulSoup # $ pip install beautifulsoup4
       
 
-soup = BeautifulSoup(open(sys.argv[1]),"html.parser")
-for link in soup.findAll('a'):
-  print (link.get('href'))
+try:
+	soup = BeautifulSoup(open(sys.argv[1]),"html.parser")
+	for link in soup.findAll('a'):
+		print (link.get('href'))
+except IndexError:
+	print("Don't have the path of file\n", file=sys.stderr)
 
 
 
