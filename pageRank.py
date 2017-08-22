@@ -1,27 +1,26 @@
 import networkx
+import sys
 from pybrain import *
 from pybrain.datasets import SupervisedDataSet
 
 
 g = nx.MultiDiGraph()
 
-while (True):
-  try:
-    entrada=input()
+#we need data/graph be a file with the graph
+try:
+  fp=open("data/graph", "r")
+except FileNotFound:
+  print("please, create data/graph",file=sys.stderr)
+  exit 1
+except Permission:
+  print("please, set permission of data/graph to 0644")
+  exit 2
+for entrada in fp:
     entrada=entrada.split()
     g.addEdge(entrada[0],entrada[1]);
-  except Exception:
-    break
-  entrada=input()
+
 d = pagerank(g, alpha=0.85, max_iter=1000, tol=1e-06)
 
-
-#after tests, create neural network, add here and merge the files, because in the beggining there's a lot of shell scripts
-
-def createFile():
-  file=open("./var/differentWords","w")
-  populateFile(file)
-  close(file)
 
 def numberOfInputs():
   try:
@@ -31,9 +30,9 @@ def numberOfInputs():
       numberOfLines+=1
     close(file)
     return numberOfLines
-  except FileNotFound:
-    createFile()
-    return numberOfInputs()
+  except OSError:
+    print ("please, create var/differentWords with the correct permissions",file=sys.stderr)
+    exit 3
     
 
 
