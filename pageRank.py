@@ -6,17 +6,10 @@ from pybrain import *
 from pybrain.datasets import SupervisedDataSet
 
 
-g = nx.MultiDiGraph()
+g = networkx.MultiDiGraph()
 
 #we need data/graph be a file with the graph
-try:
-  fp=open("data/graph", "r")
-except FileNotFound:
-  sys.stderr.write("please, create data/graph")
-  exit (1)
-except Permission:
-  print("please, set permission of data/graph to 0644")
-  exit (2)
+fp=open("data/graph", "r")
 for entrada in fp:
     entrada=entrada.split()
     g.addEdge(entrada[0],entrada[1]);
@@ -68,8 +61,6 @@ trainer = BackpropTrainer(net, dataSet)
 error=trainer.trainUntilConvergence()
 
 print error
-
-
 
 
 
