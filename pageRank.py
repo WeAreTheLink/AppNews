@@ -12,11 +12,11 @@ g = nx.MultiDiGraph()
 try:
   fp=open("data/graph", "r")
 except FileNotFound:
-  print("please, create data/graph",file=sys.stderr)
-  exit 1
+  sys.stderr.write("please, create data/graph")
+  exit (1)
 except Permission:
   print("please, set permission of data/graph to 0644")
-  exit 2
+  exit (2)
 for entrada in fp:
     entrada=entrada.split()
     g.addEdge(entrada[0],entrada[1]);
@@ -73,14 +73,6 @@ print error
 
 
 
-
-
-
-
-
-
-
->>>>>>> a927c5afce090be3ac4088a4d69a886bde59496f
 
 
 
