@@ -36,20 +36,13 @@ net = buildnetwork(n,n,n,1, bias=True)
 
 dataSet=SupervisedDataSet(n,1)
 
-#here, we need data/bagOfWords with the bag of words separated by your pageRank by a '#'
 
-##Something like :
-#   1 0 5 28 234 54#0.65
-#   2 8 2 0 0 9#0.98
+def getBagOfWords(pageName):
+	
 
-fp=open("data/bagOfWords","r")
-
-for line in fp:
-    line=line.split('#')
-    bag,pageRank = line
-    pagerank=int(pagerank)
-    bag=bag.split()
-    dataSet.addSample(tuple(bag),pagerank)
+for pageName in d:
+	pageRank=d[pageName]
+	dataSet.addSample(getBagOfWords(pageName),pageRank)
 
 
 #this is a preliminar study. Because normally we need two divisions : training set and verify set
