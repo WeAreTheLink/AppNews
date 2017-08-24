@@ -4,6 +4,9 @@ import networkx
 import sys
 from pybrain import *
 from pybrain.datasets import SupervisedDataSet
+from bs4 import BeautifulSoup
+import re
+import collections
 
 
 g = networkx.MultiDiGraph()
@@ -38,6 +41,13 @@ dataSet=SupervisedDataSet(n,1)
 
 
 def getBagOfWords(pageName):
+	fp=open(pageName,"r")
+	bs=BeautifulSoup(fp.read(),"html.parser")
+	contents=[article.text for article in bs.findAll("article")]
+	bagsofwords = [collections.Counter(re.findall(r'\w+', txt)) for txt in contents]
+	wordCounter = sum(bagsofwords, collections.Counter())
+	#I need to iterated on differentWords to create a list with 0 or de number on the COunter
+	return tuple(wordCounter)
 	
 
 for pageName in d:
