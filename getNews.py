@@ -1,14 +1,26 @@
 import scrapy
+import re
+
+#next move is to inherit a more specific class
+#that allow rules for domain and category
+
 
 class GetNews(Scrapy.Spider):
 	name="appNewsCrawler"
 	start_urls = getInitialURL()
-
-#for each article, we save the content.
-#for each link, we follow
+	allow_domains = domains()
+	
 	def parser(self,response):
-		#we need understand how to use xpath to get all text in article
-		for article in response.xpath("//article"):
+		for article in response.xpath("//article").extract():
+			listWithoutTags=re.split("<[^>]+?>",article)
+			fp=open(response.url,"w")
+			fp.write(reduce(lambda x y: x+y,listWithoutTags))
+			fp.close()
+
+		for link in response.xpath("//a/@href").extract():
+			response.follow(link,callback=self.parser)
+			
+			
 	
 	@support_function
 	def getInitialURL():
@@ -19,5 +31,14 @@ class GetNews(Scrapy.Spider):
 			category = second.split(',')
 			for categories in category:
 				l=l+[first + "/" + categories]
+		fp.close()
+		return l
+
+	@support_function
+	def domains():
+		fp=open("sites","r")
+		l=[]
+		for line in fp:
+			l=l+[line.split(',')[0]]
 		fp.close()
 		return l
