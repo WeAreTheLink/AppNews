@@ -1,10 +1,6 @@
 import scrapy
 import re
 
-#next move is to inherit a more specific class
-#that allow rules for domain and category
-
-
 class GetNews(Scrapy.Spider):
 	name="appNewsCrawler"
 	start_urls = getInitialURL()
@@ -18,10 +14,17 @@ class GetNews(Scrapy.Spider):
 			fp.close()
 
 		for link in response.xpath("//a/@href").extract():
-			response.follow(link,callback=self.parser)
+			if(prefixIsCorrect(link)):
+				yield response.follow(link,callback=self.parser)
 			
 			
-	
+	@support_function
+	def prefixIsCorrect(link):
+		for prefix in start_urls:
+			if (re.match(prefix,link)):
+				return True
+		return False
+
 	@support_function
 	def getInitialURL():
 		l=[]
