@@ -12,9 +12,12 @@ class GetNews(Scrapy.Spider):
 			fp=open(response.url,"w")
 			fp.write(reduce(lambda x y: x+y,listWithoutTags))
 			fp.close()
-
+		
+		fp=open("data/graph")
 		for link in response.xpath("//a/@href").extract():
 			if(prefixIsCorrect(link)):
+				fp.write(response.url + " " + link)
+				fp.close()
 				yield response.follow(link,callback=self.parser)
 			
 			
