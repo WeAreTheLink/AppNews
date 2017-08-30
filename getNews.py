@@ -10,7 +10,7 @@ class GetNews(Scrapy.Spider):
 		for article in response.xpath("//article").extract():
 			listWithoutTags=re.split("<[^>]+?>",article)
 			fp=open(response.url,"w")
-			fp.write(reduce(lambda x y: x+y,listWithoutTags))
+			fp.write(concatAll(listWithoutTags))
 			fp.close()
 		
 		fp=open("data/graph")
@@ -20,6 +20,13 @@ class GetNews(Scrapy.Spider):
 				fp.close()
 				yield response.follow(link,callback=self.parser)
 			
+	
+	@support_function
+	def concatAll(l):
+		k=""
+		for i in l:
+			k=k+i
+		return k
 			
 	@support_function
 	def prefixIsCorrect(link):
