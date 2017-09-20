@@ -1,0 +1,11 @@
+{"economia": ["agronegocios", "negocios", "midia-e-marketing", "concursos-e-empregos", "seu-dinheiro"],
+ "mundo": ["eleicoes", "siria"],
+"brasil": [],
+"politica": ["eleicoes", "mensalao", "operacao-lava-jato", "impeachment-de-dilma"],
+"arte": ["cinema", "musica", "carnaval"],
+"tecnologia": ["games", "ces"],
+"educacao": ["enem"],
+"saude": [],
+"carros": [],
+"natureza": []
+}
